@@ -1,3 +1,3 @@
-function Q = ForceFunction(x, dx)
+function Q = ForceFunction(self, x, dx)
 Q = self.Q(x,dx);
 end

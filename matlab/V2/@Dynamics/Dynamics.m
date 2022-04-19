@@ -5,8 +5,8 @@ classdef Dynamics
             arguments
                 paramStates.dimension uint64=1
                 
-                paramStates.M function_handle{mustBeLengthOfArgumentList2}=@(x,dx)1
-                paramStates.Q function_handle{mustBeLengthOfArgumentList2}=@(x,dx)0
+                paramStates.M function_handle{mustBeLengthOfArgumentList}=@(x,dx)1
+                paramStates.Q function_handle{mustBeLengthOfArgumentList}=@(x,dx)0
             end
             self.paramStates = paramStates;
         end
@@ -34,13 +34,13 @@ classdef Dynamics
         end
         
         function self = set.M(self, M)
-            mustBeLengthOfArgumentList2(M);
+            mustBeLengthOfArgumentList(M);
             
             self.paramStates.M = M;
         end
         
         function self = set.Q(self, Q)
-            mustBeLengthOfArgumentList2(Q);
+            mustBeLengthOfArgumentList(Q);
             
             self.paramStates.Q = Q;
         end
@@ -60,7 +60,7 @@ classdef Dynamics
     end
 end
 
-function mustBeLengthOfArgumentList2(fcn)
+function mustBeLengthOfArgumentList(fcn)
 if(nargin(fcn) ~= 2)
     eidType = 'mustBeLengthOfArgumentList2:notInputArg2';
     msgType = 'Input of the function handle must be 2.';
