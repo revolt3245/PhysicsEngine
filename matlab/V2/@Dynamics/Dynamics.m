@@ -17,6 +17,14 @@ classdef Dynamics
         function dimension = get.dimension(self)
             dimension = self.paramStates.dimension;
         end
+        
+        function M = get.M(self)
+            M = self.paramStates.M;
+        end
+        
+        function Q = get.Q(self)
+            Q = self.paramStates.Q;
+        end
     end
     
     %% setter methods
@@ -24,11 +32,26 @@ classdef Dynamics
         function self = set.dimension(self, dimension)
             self.paramStates.dimension = dimension;
         end
+        
+        function self = set.M(self, M)
+            mustBeLengthOfArgumentList2(M);
+            
+            self.paramStates.M = M;
+        end
+        
+        function self = set.Q(self, Q)
+            mustBeLengthOfArgumentList2(Q);
+            
+            self.paramStates.Q = Q;
+        end
     end
     
     %% public properties
     properties(Dependent, Access = public)
         dimension
+        
+        M
+        Q
     end
     
     %% private properties
