@@ -105,7 +105,7 @@ classdef EngineObject
             arguments
                 self
                 
-                Scale (2,:) double
+                Scale (1,2) double
             end
             
             self.paramTransform.Scale = Scale;

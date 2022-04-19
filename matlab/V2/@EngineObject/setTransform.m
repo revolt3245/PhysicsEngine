@@ -1,5 +1,5 @@
 function setTransform(self, Translate, Rotation, Scale)
-self.Translate = Translate;
+self.Translation = Translate;
 self.Rotation = Rotation;
 self.Scale = Scale;
 end
