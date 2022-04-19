@@ -29,7 +29,6 @@ classdef Dynamics
     %% public properties
     properties(Dependent, Access = public)
         dimension
-        M
     end
     
     %% private properties

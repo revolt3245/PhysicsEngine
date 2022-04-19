@@ -16,6 +16,7 @@ classdef Solver
     
     %% getter
     methods
+        %% public
         function a_hat = get.a_hat(self)
             a_hat = self.paramConstraint.a_hat;
         end
@@ -26,6 +27,15 @@ classdef Solver
         
         function dt = get.dt(self)
             dt = self.paramSolver.dt;
+        end
+        
+        %%private
+        function a = get.a(self)
+            a = self.a_hat/self.dt;
+        end
+        
+        function b = get.b(self)
+            b = self.b_hat/(self.dt^2);
         end
     end
     
@@ -50,6 +60,11 @@ classdef Solver
         b_hat
         
         dt
+    end
+    
+    properties(Dependent, Access = private)
+        a
+        b
     end
     
     %% private properties
