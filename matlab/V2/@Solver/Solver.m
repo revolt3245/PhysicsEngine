@@ -12,7 +12,47 @@ classdef Solver
             self.paramSolver = paramSolver;
         end
     end
-    properties(Access = public)
+    
+    %% getter
+    methods
+        function a_hat = get.a_hat(self)
+            a_hat = self.paramConstraint.a_hat;
+        end
+        
+        function b_hat = get.b_hat(self)
+            b_hat = self.paramConstraint.b_hat;
+        end
+        
+        function dt = get.dt(self)
+            dt = self.paramSolver.dt;
+        end
+    end
+    
+    %% setter
+    methods
+        function self = set.a_hat(self, a_hat)
+            self.paramConstraint.a_hat = a_hat;
+        end
+        
+        function self = set.b_hat(self, b_hat)
+            self.paramConstraint.b_hat = b_hat;
+        end
+        
+        function self = set.dt(self, dt)
+            self.paramSolver.dt = dt;
+        end
+    end
+    
+    %% public properties
+    properties(Dependent, Access = public)
+        a_hat
+        b_hat
+        
+        dt
+    end
+    
+    %% private properties
+    properties(Access = private)
         paramConstraint
         paramSolver
     end
