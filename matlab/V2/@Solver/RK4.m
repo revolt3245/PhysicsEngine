@@ -1,4 +1,4 @@
-function x_next = RungeKutta(self, Fcn, x_pre)
+function x_next = RK4(self, fcn, x_pre)
 dx1 = Fcn(x_pre);
 dx2 = Fcn(x_pre + dx1*self.dt/2);
 dx3 = Fcn(x_pre + dx2*self.dt/2);
