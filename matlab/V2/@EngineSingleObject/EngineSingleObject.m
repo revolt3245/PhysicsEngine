@@ -85,8 +85,6 @@ classdef EngineSingleObject
             end
             
             self.paramTransform.Translation = Translation;
-            
-            self.Update
         end
         
         function self = set.Rotation(self, Rotation)
@@ -97,8 +95,6 @@ classdef EngineSingleObject
             end
             
             self.paramTransform.Rotation = Rotation;
-            
-            self.Update
         end
         
         function self = set.Scale(self, Scale)
@@ -109,8 +105,6 @@ classdef EngineSingleObject
             end
             
             self.paramTransform.Scale = Scale;
-            
-            self.Update;
         end
     end
     
