@@ -1,7 +1,7 @@
-classdef EngineObject
+classdef EngineSingleObject
     %% constructor
     methods
-        function self = EngineObject(ax, paramData, paramTransform)
+        function self = EngineSingleObject(ax, paramData, paramTransform)
             arguments
                 ax
                 
