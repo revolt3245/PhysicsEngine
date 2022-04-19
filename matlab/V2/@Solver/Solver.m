@@ -1,4 +1,5 @@
 classdef Solver
+    %% constructor
     methods
         function self=Solver(paramConstraint, paramSolver)
             arguments
