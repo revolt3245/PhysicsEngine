@@ -1,12 +1,12 @@
 function outParam = getParameter(inParam)
 arguments
     inParam.m (1,1) double=1
-    inParam.l (1,1) double=1
+    inParam.l (1,1) double=0.5
     
     inParam.g (1,1) double=9.8
     inParam.b (1,1) double=1
     
-    inParam.r (1,1) double=2
+    inParam.r (1,1) double=1
     
     inParam.iter (1,1) uint64=10
     

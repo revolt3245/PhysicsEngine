@@ -20,18 +20,31 @@ x_cur = x(1:3,:);
 Msys1 = [M G1'; G1 0];
 Msys2 = [M G2'; G2 0];
 
-L1 = [-b*dx(1) -m*g-b*dx(2) 0 getGamma(dx(1:3), C1, G1, H1, Parameter)]';
-L2 = [-b*dx(1) -m*g-b*dx(2) 0 getGamma(dx(1:3), C2, G2, H2, Parameter)]';
+Msys = cat(3, Msys1, Msys2);
 
-dx1 = zeros(4,1); dx2 = zeros(4,1);
+L = zeros(4,2);
+L13 = -b*[dx(1) dx(2) 0]' - [0 m*g 0]';
+L(1:3,:) = repmat(L13, 1, 2);
+L(4,1) = getGamma(dx(1:3), C1, G1, H1, Parameter);
+L(4,2) = getGamma(dx(1:3), C2, G2, H2, Parameter);
+
+dxtemp = zeros(4,2);
+dxpre = zeros(4,2);
+
+G = [G1' G2'];
 
 for i=1:iter
-    L1temp = L1 - dx2(4)*[G2 0]';
-    L2temp = L2 - dx1(4)*[G1 0]';
-    
-    dx1 = Msys1\L1temp;
-    dx2 = Msys2\L2temp;
+    for j=1:2
+        lambdas = dxpre(4,:);
+        lambdas(j) = 0;
+        
+        subs = [G * lambdas'; 0];
+        Ltemp = L(:,j) - subs;
+        
+        dxtemp(:,j) = Msys(:,:,j)\Ltemp;
+    end
+    dxpre = dxtemp;
 end
 
-dx(4:6) = dx1(1:3);
+dx(4:6) = dxtemp(1:3, 1);
 end
