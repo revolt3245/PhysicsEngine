@@ -38,7 +38,6 @@ for i=1:totalFrame
     for j=1:resolution
         x = RungeKuttaWrapper(@(x)Dynamics(x, Parameter), x, dt);
     end
-    disp(x);
     Shapes = UpdateDraw(Shapes, x, Parameter);
     frame = getframe(fig);
     writeVideo(video, frame);
