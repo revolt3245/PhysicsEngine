@@ -1,12 +1,12 @@
 clear; clc; close;
 
 %% initial condition
-x = [5 0]';
+x = [10 0]';
 dt = 1e-3;
 
 %% Parameter
 m = 1;
-e = sqrt(2*dt);
+e = 1;
 
 dPhi_pre = 0;
 x_pre = x;
@@ -22,14 +22,18 @@ h = scatter(ax, 0, x(1), 20, MarkerFaceColor = [1 0 0], MarkerEdgeColor = [1 0 0
 
 for i=1:5000
     for j=1:10
-        x_next = RungeKuttaWrapper(@(x)dynamics(x, m = m, e = e, cond = cond, x_pre = x_pre), x, dt);
+        x_next = RungeKuttaWrapper(@(x)dynamics(x, m = m, cond = cond), x, dt);
         
-        cond = x_next(1) <= 0;
-        
-        if ~cond
-            x_pre = x_next;
+        cond = x_next(1) <= 0 && x_next(2) <= 0;
+        if cond
+            %x(1) = 0;
+            %x(2) = -e * (x(2)*x_next(1) - x_next(2)*x(1))/(x_next(1) - x(1));
+            x(2) = -e * x_next(2);
+            x(1) = x_next(1);
+            %x(2) = -e * x(2);
+        else
+            x = x_next;
         end
-        x = x_next;
     end
     h.YData = x(1);
     
