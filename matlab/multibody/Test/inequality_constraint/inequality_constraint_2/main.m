@@ -1,10 +1,10 @@
 clear; clc; close;
 
 %% Parameter
-Param = getParameter(b = 0, mu = 1e-2, e = 0.7);
+Param = getParameter(b = 0, mu = 0.1, e = 0.1);
 
 %% initial condition
-x = [0 2 4 0]';
+x = [0 10 4 0]';
 cond = false;
 
 %% figure
