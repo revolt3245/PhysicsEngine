@@ -8,9 +8,11 @@ cond == false --> i = 0;
 cond == true --> V = 0;
 %}
 %% parameter
+Rd = Param.Rd;
+
 if cond
-    C = X(3) - X(2);
-    G = [0 -1 1 0 0 0];
+    C = X(2) - X(3) - Rd*X(5);
+    G = [0 1 -1 0 -Rd 0];
     H = zeros(6);
 else
     C = X(5);

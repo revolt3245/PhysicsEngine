@@ -1,7 +1,7 @@
 clear; clc; close;
 
 %% parameter
-Param = getParameters(freq = 5, Vp = 2, dt = 1/6000, alpha_hat_eq = 3.46, beta_hat_eq = 3.78);
+Param = getParameters(freq = 10, Vp = 2, dt = 1/6000, alpha_hat_eq = 3.46, beta_hat_eq = 3.78);
 
 %% initial condition
 X = zeros(12, 1);

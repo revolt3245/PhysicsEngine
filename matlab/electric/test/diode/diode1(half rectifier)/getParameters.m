@@ -12,9 +12,7 @@ arguments
     inParam.freq (1,1) double = 60;
     inParam.R (1,1) double = 1;
 
-    inParam.VT (1,1) double = 25.85e-3;
-    inParam.Is (1,1) double = 1e-12;
-    inParam.n (1,1) double = 1;
+    inParam.Rd (1,1) double = 1e-12;
 end
 %% sovler option
 dt = inParam.dt;
