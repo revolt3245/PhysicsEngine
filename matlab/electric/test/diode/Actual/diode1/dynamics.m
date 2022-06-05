@@ -1,4 +1,4 @@
-function dx = dynamics(x, cond, Param)
+function dx = dynamics(x, Param)
 %% parameters
 iter = Param.iteration;
 
@@ -14,14 +14,13 @@ Q = zeros(6, 1);
 
 C = zeros(5,1); G = zeros(5,6); H = zeros(5, 6, 6);
 
-%cond = true;
-
 [C(1,1), G(1,:), H(1,:,:)] = Phi.VSource(x_cur, Param);
 [C(2,1), G(2,:), H(2,:,:)] = Phi.KCL1(x_cur, Param);
 [C(3,1), G(3,:), H(3,:,:)] = Phi.KCL2(x_cur, Param);
 [C(4,1), G(4,:), H(4,:,:)] = Phi.R1(x_cur, Param);
-[C(5,1), G(5,:), H(5,:,:)] = Phi.D1(x_cur, cond, Param);
-%{
+[C(5,1), G(5,:), H(5,:,:)] = Phi.D1(x_cur, Param);
+
+%% dynamics
 Msys = zeros(5, 7, 7);
 Qsys = zeros(5, 7, 1);
 
@@ -53,21 +52,8 @@ for i=1:iter
         
         dx_temp(:,constraints) = Msys_cur\(Qsys_cur - diffs);
     end
-    dxs = dx_temp;
-end
-%}
-
-Gt = [zeros(5,1) G(:,2:end)];
-
-Msys = [M Gt'; Gt zeros(5)];
-Qsys = zeros(11,1);
-
-for i=1:5
-    Qsys(6+i,:) = getGamma(dx_cur, C(i,:), G(i,:), reshape(H(i,:,:), 6, 6), Param);
+    dxs = dxs * 0.5 + dx_temp * 0.5;
 end
 
-dx_res = Msys\Qsys;
-
-dx(7,:) = 0;
-dx(8:12,:) = dx_res(2:6,1);
+dx(7:12,:) = dxs(1:end-1, 1);
 end
