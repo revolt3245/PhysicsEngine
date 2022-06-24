@@ -6,7 +6,7 @@ arguments
     inParam.alpha_hat_eq (1,1) double = 3.46;
     inParam.beta_hat_eq (1,1) double = 3.78;
 
-    inParam.iteration (1,1) uint64 = 10;
+    inParam.iteration (1,1) uint64 = 1;
 
     inParam.alpha_gs (1,1) double = 0.5;
     %% dynamics
