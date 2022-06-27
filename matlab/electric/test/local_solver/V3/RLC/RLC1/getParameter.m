@@ -6,7 +6,7 @@ arguments
 
     inParam.dt (1,1) double = 1/6000;
     %% iteration
-    inParam.alpha_gs (1,1) double = 1.0;
+    inParam.alpha_gs (1,1) double = 0.5;
 
     inParam.n_iter (1,1) uint64 = 1;
 end

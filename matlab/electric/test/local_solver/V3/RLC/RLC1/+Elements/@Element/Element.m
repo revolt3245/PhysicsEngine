@@ -4,8 +4,8 @@ classdef (Abstract) Element < matlab.mixin.Heterogeneous
             self.mapping = mapping;
 
             self.dx = zeros(size(mapping, 2), 1);
-            self.d2x = zeros(size(mapping, 2), 1);
-            self.d2x_temp = zeros(size(mapping, 2), 1);
+            self.lambda = 0;
+            self.lambda_temp = 0;
         end
     end
     
@@ -14,7 +14,9 @@ classdef (Abstract) Element < matlab.mixin.Heterogeneous
 
         self = initialize(self, X, dX, Param);
         self = updateTemp(self, Diff);
-        self = updateD2x(self, Param);
+        self = updateLambda(self, Param);
+
+        d2x = getError(self, Diff);
     end
 
     methods(Abstract, Access = public)
@@ -26,13 +28,13 @@ classdef (Abstract) Element < matlab.mixin.Heterogeneous
         mapping
 
         dx
-        d2x
+        lambda
 
         Grad
     end
 
     properties(Access = protected)
-        d2x_temp
+        lambda_temp
 
         dQ
         Gamma

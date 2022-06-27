@@ -15,6 +15,6 @@ self.Grad(1) = 0;
 self.Gamma = self.getGamma(C, G, H, dS, Param);
 
 %% d2x
-self.d2x = zeros(size(S, 1) + 1, 1);
-self.d2x_temp = zeros(size(S, 1) + 1, 1);
+self.lambda = 0;
+self.lambda_temp = 0;
 end

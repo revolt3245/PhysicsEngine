@@ -1,7 +1,7 @@
 clear; clc; close;
 
 %% parameter
-Param = getParameter(alpha_gs = 0.5, n_iter = 1, dt = 1/6000);
+Param = getParameter(alpha_gs = 0.3, n_iter = 1, dt = 1/6000);
 
 %% initial_state
 X = zeros(27, 1);
@@ -74,11 +74,10 @@ while norm(dX) >= 1e-3
     end
 
     disp(cond);
-    disp(X);
+    disp(norm(dX));
 end
 
 dX(1) = 1;
-
 for i = 1:600
     for j = 1:100
         tic
@@ -87,12 +86,14 @@ for i = 1:600
         ind = ind + 1;
         States(:, ind) = X;
 
-        cond = [];
+        cond = logical(zeros(1,6));
+        id = 1;
         for k = 1:size_c
             if class(circuit(k)) == "Elements.D"
                 circuit(k) = circuit(k).changeCondition(X);
+                cond(id) = circuit(k).cond;
 
-                cond = [cond circuit(k).cond];
+                id = id + 1;
             end
         end
     end

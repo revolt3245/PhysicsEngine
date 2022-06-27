@@ -13,45 +13,49 @@ end
 Diff = zeros(size(X, 1), 1);
 
 for i=1:n_iter
+    %% temporal lambda update
     for j=1:size_c
         circuit_cur = circuit(j);
 
-        Grad_cur = circuit_cur.Grad;
-        d2x_cur = circuit_cur.d2x;
+        %Grad_cur = circuit_cur.Grad;
+        %lambda_cur = circuit_cur.lambda;
 
-        mapping_cur = circuit_cur.mapping;
+        %mapping_cur = circuit_cur.mapping;
 
-        Glambda = Grad_cur' * d2x_cur(end);
+        %{
+        Glambda = Grad_cur' * lambda_cur(end);
         Diff_local = Diff;
         Diff_local(mapping_cur) = Diff_local(mapping_cur) - Glambda;
-        circuit(j) = circuit_cur.updateTemp(Diff_local);
+        %}
+        circuit(j) = circuit_cur.updateTemp(Diff);
     end
 
+    %% gauss seidel update
     for j=1:size_c
-        circuit(j) = circuit(j).updateD2x(Param);
+        circuit(j) = circuit(j).updateLambda(Param);
     end
 
+    %% global solution update
     Diff = zeros(size(X, 1), 1);
 
     for j=1:size_c
         circuit_cur = circuit(j);
 
         Grad_cur = circuit_cur.Grad;
-        d2x_cur = circuit_cur.d2x;
+        lambda_cur = circuit_cur.lambda;
 
         mapping_cur = circuit_cur.mapping;
 
-        Diff(mapping_cur) = Diff(mapping_cur) + Grad_cur' * d2x_cur(end);
+        Diff(mapping_cur) = Diff(mapping_cur) + Grad_cur' * lambda_cur;
     end
 end
 d2X = -Diff;
+
 for i=1:size_c
     circuit_cur = circuit(i);
-    
-    d2x_cur = circuit_cur.d2x;
-    
     mapping_cur = circuit_cur.mapping;
 
-    d2X(mapping_cur) = d2X(mapping_cur) + (d2x_cur(1:end-1) + Diff(mapping_cur))/size_c;
+    error_cur = circuit_cur.getError(Diff);
+    d2X(mapping_cur) = d2X(mapping_cur) + error_cur/size_c;
 end
 end
